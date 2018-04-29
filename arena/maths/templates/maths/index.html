@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    {% load staticfiles %}    
+    <link rel="stylesheet" href="{% static 'maths/styles.css' %}">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+              
+    <title>Home</title>
+</head>
+<body>
+
+        <div id="boxes">
+            <h2>{{question}}</h2>
+            <div id="JSobject">
+                <pre>{"number":"0"}</pre> 
+            </div>
+
+            
+            {% csrf_token %}                
+                <input type="text" id="resp">
+
+                <div id="red" class="box red"></div>
+                <div id="blue" class="box blue"></div>
+                <div id="green" class="box green"></div>
+                <div id="yellow" class="box yellow"></div>
+
+                <input type="button" id = "clear" value="clear" disabled>
+                <input id="sub" type="button" value="Submit" disabled>
+                <input id="next" type="button" value="Next" >
+                <p>
+                    <h1 id="result">
+                        
+                    </h1>
+                </p>
+        </div>    
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"></script>
+        <script src="{% static 'maths/js/main.js' %}"></script>
+
+   <script>
+        //var obj = { num: '0' };
+        var obj ={number:0};
+
+        numb = {{num}};
+        digs = {{digs}};
+
+        var JSobject = anime({
+        targets: obj,
+        number: numb,
+        round: 1,
+        easing: 'linear',
+        update: function() {
+            $('#JSobject').html(JSON.stringify(obj));
+        }
+        });
+
+        $("#red").html("<h1>"+digs[3]+"</h1>");
+        $("#blue").html("<h1>"+digs[2]+"</h1>");
+        $("#green").html("<h1>"+digs[1]+"</h1>");
+        $("#yellow").html("<h1>"+digs[0]+"</h1>");
+
+        $('#red').click(function(){
+            $('#resp').val( $('#resp').val() + digs[3])
+        });
+
+        $('#blue').click(
+            function(){$('#resp').val($('#resp').val()+digs[2])}
+        );
+
+        $('#green').click(
+            function(){$('#resp').val($('#resp').val()+digs[1])}
+        );
+
+        $('#yellow').click(
+            function(){$('#resp').val($('#resp').val()+digs[0])}
+        );
+
+        $('#resp').on('input onchange', function () {
+            var text = $('#resp').val();
+            if(text.length >=3){
+                
+                $("#sub").removeAttr('disabled');
+                $("#clear").removeAttr('disabled');
+                $("#resp").prop('disabled', true);
+            }
+        });
+
+        $("#clear").click(function(){
+            $("#resp").val("");
+            $("#resp").prop('disabled', false);
+        });
+
+        $('#next').click(function(){
+            $("#resp").val("");
+            location.reload();            
+        });
+
+        $("#sub").click(function(){
+            $.ajax({
+                    type:"POST",
+                    url:"/check/",
+                    data:{   
+                        'q':{{num}},
+                        'qnum':{{qnum}},
+                        'num':$('#resp').val(),
+                        'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val(),
+                    },
+                    success:checkSuccess,
+                    dataType:'html'
+                });
+        });
+
+        function checkSuccess(data,textStatus,jqXHR){            
+            $('#result').html(data)
+        }
+</script>
+</body>
+</html>
