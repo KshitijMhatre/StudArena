@@ -10,7 +10,7 @@ questions={
     3:"Biggest Even number formed with digits of",
     4:"Smallest number formed with digits of",
     5:"Smallest Odd number formed with digits of",
-    6:"Smallest Evenp number formed with digits of",
+    6:"Smallest Even number formed with digits of",
 }
 
 def index(request):
@@ -39,4 +39,6 @@ def check(resquest):
     if funmat.ask_n_check(ans,resp,"ans num is"):
         return HttpResponse("Correct")
     else:
-        return HttpResponse("InCorrect")
+        if ans==-1:
+            ans= "not possible"
+        return HttpResponse("InCorrect<br> right ans is "+str(ans))

@@ -1,35 +1,86 @@
+var red = anime({
+    targets: 'div.box.red',
+    translateY: {
+    value: 250,
+    duration: 800
+    },
+    rotate: {
+    value: 360,
+    duration: 1800,
+    easing: 'easeInOutSine'
+    },
+    scale: {
+    value: .5,
+    duration: 1600,
+    delay: 800,
+    easing: 'easeInOutQuart'
+    },
+    autoplay:false,   
+    delay: 250 // All properties except 'scale' inherit 250ms delay
+    
+});
 
-// var playPause = anime({
-//     targets:'div.box',
-//     translateY:[
-//         { value: 200, duration: 500 },
-//         { value: 0, duration: 800 }
-//     ],
-//     rotate:{
-//         value:'1turn',
-//         easing: 'easeInOutSine'
-//     },
-//     delay:function(element,i,l){
-//         return i*1000;
-//     },
-//     autoplay:false,    
-// });
+var blue = anime({
+    targets: 'div.box.blue',
+    translateY: {
+    value: 250,
+    duration: 800
+    },
+    rotate: {
+    value: 270,
+    duration: 1800,
+    easing: 'easeInOutSine'
+    },
+    scale: {
+    value: 2,
+    duration: 1600,
+    delay: 800,
+    easing: 'easeInOutQuart'
+    },
+    autoplay:false,   
+    delay: 250 // All properties except 'scale' inherit 250ms delay
+});
 
-// $('#red').click(
-//     $('#resp').val( $('#resp').val() + $('#red').val() )
-// );
+var green = anime({
+    targets: 'div.box.green',
+    translateY: {
+    value: 250,
+    duration: 800
+    },
+    rotate: {
+    value: 200,
+    duration: 1800,
+    easing: 'easeInOutSine'
+    },
+    scale: {
+    value: 1.2,
+    duration: 1600,
+    delay: 800,
+    easing: 'easeInOutQuart'
+    },
+    autoplay:false,   
+    delay: 250 // All properties except 'scale' inherit 250ms delay
+});
 
-// $('#blue').click(
-//     $('#resp').val($('#resp').val()+$('#blue').val())    
-// );
-
-// $('#green').click(
-//     $('#resp').val($('#resp').val()+$('#green').val())    
-// );
-
-// $('#yellow').click(
-//     $('#resp').val($('#resp').val()+$('#yellow').val())
-// );
-
+var yellow = anime({
+    targets: 'div.box.yellow',
+    translateX: {
+    value: 250,
+    duration: 800
+    },
+    rotate: {
+    value: 180,
+    duration: 1800,
+    easing: 'easeInOutSine'
+    },
+    scale: {
+    value: 2,
+    duration: 1600,
+    delay: 800,
+    easing: 'easeInOutQuart'
+    },
+    autoplay:false,   
+    delay: 250 // All properties except 'scale' inherit 250ms delay
+});
 
 

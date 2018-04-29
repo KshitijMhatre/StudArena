@@ -16,30 +16,36 @@
 </head>
 <body>
 
-        <div id="boxes">
+        <div class="boxes">
             <h2>{{question}}</h2>
             <div id="JSobject">
                 <pre>{"number":"0"}</pre> 
             </div>
 
             
-            {% csrf_token %}                
-                <input type="text" id="resp">
-
-                <div id="red" class="box red"></div>
-                <div id="blue" class="box blue"></div>
-                <div id="green" class="box green"></div>
-                <div id="yellow" class="box yellow"></div>
-
+            {% csrf_token %}   
+            <div style=" margin:30px auto;">
+                <input type="text" id="resp" autocomplete="off">
+            </div>            
+            
+            <div style="margin: 30px;">
                 <input type="button" id = "clear" value="clear" disabled>
                 <input id="sub" type="button" value="Submit" disabled>
                 <input id="next" type="button" value="Next" >
                 <p>
                     <h1 id="result">
-                        
                     </h1>
                 </p>
-        </div>    
+            </div>
+
+        </div>
+        
+            <div class="boxes">
+                <div id="red" class="box red"></div>
+                <div id="blue" class="box blue"></div>
+                <div id="green" class="box green"></div>
+                <div id="yellow" class="box yellow"></div>            
+            </div>    
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"></script>
         <script src="{% static 'maths/js/main.js' %}"></script>
@@ -48,6 +54,7 @@
         //var obj = { num: '0' };
         var obj ={number:0};
 
+        var count=0;
         numb = {{num}};
         digs = {{digs}};
 
@@ -60,31 +67,59 @@
             $('#JSobject').html(JSON.stringify(obj));
         }
         });
+        
 
         $("#red").html("<h1>"+digs[3]+"</h1>");
         $("#blue").html("<h1>"+digs[2]+"</h1>");
         $("#green").html("<h1>"+digs[1]+"</h1>");
         $("#yellow").html("<h1>"+digs[0]+"</h1>");
 
-        $('#red').click(function(){
-            $('#resp').val( $('#resp').val() + digs[3])
-        });
+        function incCheck(){
+            count+=1;
+            if (count>4){
+                $("#sub").removeAttr('disabled');
+                $("#clear").removeAttr('disabled');
+                $("#resp").prop('disabled', true);
+                return false;
+            }
+            return true;
+        }
 
-        $('#blue').click(
-            function(){$('#resp').val($('#resp').val()+digs[2])}
+        $('#red').click(function(){
+            if(incCheck()){
+                $('#resp').val( $('#resp').val() + digs[3]);
+                red.play();
+            }
+        });
+        
+        $('#blue').click(function(){
+            if(incCheck()){
+                $('#resp').val($('#resp').val()+digs[2]);
+                blue.play();
+                }            
+            }
         );
 
-        $('#green').click(
-            function(){$('#resp').val($('#resp').val()+digs[1])}
+        $('#green').click(function(){
+            if(incCheck())
+          {  $('#resp').val($('#resp').val()+digs[1]);
+            green.play();
+                }
+            }
         );
 
         $('#yellow').click(
-            function(){$('#resp').val($('#resp').val()+digs[0])}
+            function(){
+                if(incCheck())
+            {    $('#resp').val($('#resp').val()+digs[0])
+                    yellow.play();
+                }
+            }
         );
 
         $('#resp').on('input onchange', function () {
             var text = $('#resp').val();
-            if(text.length >=3){
+            if(text.length >=4){
                 
                 $("#sub").removeAttr('disabled');
                 $("#clear").removeAttr('disabled');
