@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from maths import views
-from django.urls import include, path
+from .gameviews import funmatView
 
-urlpatterns = [
-    path('admin/', admin.site.urls),    
-    path('maths/', include('maths.urls')),
-    path('', views.index)  
+urlpatterns = [    
+    path('',views.index, name='maths'),
+    path('funmat/',funmatView.index, name='funmat'),
+    path('check/',funmatView.check, name='check')
 ]

@@ -29,14 +29,14 @@
             </div>            
             
             <div style="margin: 30px;">
-                <input type="button" id = "clear" value="clear" disabled>
-                <input id="sub" type="button" value="Submit" disabled>
+                <input type="button" id = "clear" value="clear"><!-- disabled-->
+                <input id="sub" type="button" value="Submit"><!-- disabled-->
                 <input id="next" type="button" value="Next" >
                 <p>
                     <h1 id="result">
                     </h1>
                 </p>
-            </div>
+            </div>disabled
 
         </div>
         
@@ -140,7 +140,7 @@
         $("#sub").click(function(){
             $.ajax({
                     type:"POST",
-                    url:"/check/",
+                    url:"/maths/check/",
                     data:{   
                         'q':{{num}},
                         'qnum':{{qnum}},
