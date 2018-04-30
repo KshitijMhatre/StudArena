@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+    <title>Home</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    
+    
+
+
+<!--game name template-->
+<script id="showcase-template" type="text/x-handlebars-template">
+	{% verbatim %}
+
+    {{#each games}}
+    <div >
+        
+        <a href="{{url}}" style='text-decoration: none; color:black;'>        
+            {{name}}<br>
+        </a>
+        
+    </div>
+	{{/each}}
+	{% endverbatim %}
+</script>
+
+
+<div id= 'resultContainer' >
+
+</div>
+
+{% if games %}
+
+<script type="text/javascript">
+
+    var data= {{games|safe}}
+
+    console.log(data);
+    function createHTMl(resData){
+        var rawtemplate = $('#showcase-template').html();
+        var compiledTemplate = Handlebars.compile(rawtemplate);
+        var generatedTemplate = compiledTemplate(resData);
+
+        console.log(generatedTemplate);
+        $('#resultContainer').html(generatedTemplate);
+    }
+
+    createHTMl(data);
+
+</script>
+
+{% endif %}
+
+
+</body>
+</html>
+
+
