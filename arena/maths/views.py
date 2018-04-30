@@ -4,8 +4,8 @@ from django.http import HttpResponse
 data={
     'games' : [
         {
-        'name' :  'funmat',
-        'url'  :  '/maths/funmat'
+            'name' :  'funmat',
+            'url'  :  '/maths/funmat'
         },
     ]
 }

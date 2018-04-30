@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from maths import views
-from django.urls import include, path
+from eng import views
+from .gameviews import wordtypeView
 
-urlpatterns = [
-    path('admin/', admin.site.urls),    
-    path('maths/', include('maths.urls')),
-    path('english/', include('eng.urls')),
-    path('', views.index)  
+
+urlpatterns = [    
+    path('',views.index, name='english'),
+    path('wordtype/',wordtypeView.index ,name='wordtype')
 ]

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wordtype</title>
+
+    {% load staticfiles %}    
+    <link rel="stylesheet" href="{% static 'maths/styles.css' %}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <div id="question">
+        <h3>Pick nouns from</h3>
+        <div class="clickable">
+            {{question}}
+        </div>
+    </div>
+
+    <h3 id="responces">
+
+    </h3>
+    <script>
+
+        var ans = {{nouns|safe}} ;
+
+        $(".clickable").click(function(e) {
+            s = window.getSelection();
+            var range = s.getRangeAt(0);
+            var node = s.anchorNode;
+            while (range.toString().indexOf(' ') != 0) {
+                range.setStart(node, (range.startOffset - 1));
+            }
+            range.setStart(node, range.startOffset + 1);
+            do {
+                range.setEnd(node, range.endOffset + 1);
+
+            } while (range.toString().indexOf(' ') == -1 && range.toString().trim() != '' && range.endOffset < node.length);
+            var str = range.toString().trim();
+            var pstr=str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()"?]/g,"");
+            
+            console.log(pstr);
+            if(jQuery.inArray(pstr,ans)>-1){
+                $('#responces').html($('#responces').html()+"<br>"+pstr);                
+            }else{
+                alert("Wrong");
+            }
+        });
+    </script>
+
+
+</body>
+</html>
